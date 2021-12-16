@@ -1,9 +1,14 @@
 import { observer } from "mobx-react-lite";
-import React, { useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
-import { Button, Card, Image } from "semantic-ui-react";
+import { useEffect } from "react";
+import {  useParams } from "react-router-dom";
+import { Grid } from "semantic-ui-react";
 import LoadingComponenet from "../../../app/layout/LoadingComponent";
+import NavBar from "../../../app/layout/NavBar";
 import { useStore } from "../../../app/stores/store";
+import ActivityDetailedChat from "./ActivityDetailedChat";
+import ActivityDetailedHeader from "./ActivityDetailedHader";
+import ActivityDetailedInfo from "./ActivityDetailedInfo";
+import ActivityDetailedSideBar from "./ActivityDetailedSideBar";
 
 
 export default observer(function ActivityDetails(){
@@ -17,7 +22,24 @@ export default observer(function ActivityDetails(){
     if(loadingInitial || !activity) return <LoadingComponenet />
 
     return(
-        <Card fluid>
+        <>
+        <NavBar/>
+        <Grid>
+            <Grid.Column width='10'>
+                <ActivityDetailedHeader activity={activity} />
+                <ActivityDetailedInfo activity={activity} />
+                <ActivityDetailedChat />
+            </Grid.Column>
+            <Grid.Column width='6'>
+                <ActivityDetailedSideBar />
+            </Grid.Column>
+        </Grid>
+        </>
+       
+    );
+})
+
+/*    <Card fluid>
             <Image src={`/assets/categoryimages/${activity.category}.jpg`} />
             <Card.Content>
                 <Card.Header>{activity.title}</Card.Header>
@@ -35,5 +57,4 @@ export default observer(function ActivityDetails(){
                 </Button.Group>
             </Card.Content>
          </Card>
-    );
-})
+          */

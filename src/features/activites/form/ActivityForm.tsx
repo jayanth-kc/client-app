@@ -5,6 +5,7 @@ import { Button, Form, Segment } from "semantic-ui-react";
 import LoadingComponenet from "../../../app/layout/LoadingComponent";
 import { useStore } from "../../../app/stores/store";
 import {v4 as uuid} from 'uuid'
+import NavBar from "../../../app/layout/NavBar";
 
 export default observer(function ActivityForm(){
     const navigate = useNavigate();
@@ -57,7 +58,9 @@ export default observer(function ActivityForm(){
     }
     if (loadingInitial) return <LoadingComponenet content="Loading activity...."></LoadingComponenet>
     return(
-        <Segment clearing>
+        <>
+          <NavBar/>
+          <Segment clearing>
             <Form onSubmit={handleSubmit} autoComplete='off'>
                 <Form.Input placeholder='Title' value={activity.title} name='title' onChange={handleInputChange}></Form.Input>
                 <Form.TextArea placeholder='Description' value={activity.description} name='description' onChange={handleInputChange}></Form.TextArea>
@@ -69,5 +72,7 @@ export default observer(function ActivityForm(){
                 <Button as={Link} to='/activites' floated='right' type='button' content='Cancel' />
             </Form>
         </Segment>
+        </>
+       
     );
 })

@@ -1,12 +1,12 @@
 import { Fragment}  from 'react';
 import { Container } from 'semantic-ui-react'
-import NavBar from './NavBar';
 import ActivityDashboard from '../../features/activites/dashboard/ActivityDashboard';
 import { observer } from 'mobx-react-lite';
-import { Route, Routes, useLocation } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import HomePage from '../../features/home/HomePage';
 import ActivityForm from '../../features/activites/form/ActivityForm';
 import ActivityDetails from '../../features/activites/details/ActivityDetails';
+import 'react-calendar/dist/Calendar.css';
 
 
 function App() {

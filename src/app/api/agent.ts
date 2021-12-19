@@ -3,6 +3,9 @@ import { toast } from "react-toastify";
 import { Activity } from "../models/activity";
 //import { useNavigate } from "react-router-dom";
 import { history } from "../..";
+import { User, UserFormValues } from "../models/user";
+import { store } from "../stores/store";
+import { config } from "process";
 
 axios.defaults.baseURL = "https://localhost:5001/api"
 
@@ -14,7 +17,18 @@ const sleep = (delay:number) => {
             setTimeout(resolve,delay);
         }
     );
-}
+};
+
+axios.interceptors.request.use(config=>{
+    const token =  store.commonstore.token;
+    if (!config?.headers) {
+        throw new Error(`Expected 'config' and 'config.headers' not to be undefined`);
+    }
+    if (token) config.headers.Authorization  = `Bearer ${token}` ;
+    return config;
+});
+
+
 
 axios.interceptors.response.use(
    /* async response =>{
@@ -67,9 +81,15 @@ const Activites = {
     delete:(id:string)=>requests.delete<void>(`/Activities/${id}`),
 }
 
+const Account ={
+    current:()=> requests.get<User>('/account'),
+    login:(user:UserFormValues)=> requests.post<User>('/account/login',user),
+    register:(user:UserFormValues)=> requests.post<User>('/account/register',user),
+}
 
 const agent = {
-    Activites
+    Activites,
+    Account
 }
 
 export default agent;
